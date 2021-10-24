@@ -77,6 +77,16 @@ def addFoodItem(type):
         new_food.penup()
         new_food.goto(random.randint(-300,300),random.randint(-300,300))
         foodItems.append(new_food)
+ 
+    if type=="rotten_apple":
+        new_food = turtle.Turtle()
+        new_food.type="rotten_apple"
+        new_food.speed(0)
+        new_food.shape("circle")
+        new_food.color("blue")
+        new_food.penup()
+        new_food.goto(random.randint(-300,300),random.randint(-300,300))
+        foodItems.append(new_food)
    
 # Detect collision between two turtles
 def turt_collision(t1,t2):
@@ -156,7 +166,10 @@ wn.onkeypress(go_right_b, "p")
 
 
 
-
+# Probabilities of the different food items
+# 25% apple
+# 5%  golden apple
+# 10% rotten apple
 
 
 
@@ -168,9 +181,15 @@ while True:
     wn.update()
     move(head_a)
     move(head_b)
-    addFoodItem("apple")
-    addFoodItem("golden_apple")
- 
+
+    ranu = random.randint(1,100)
+    if ranu<=25:
+        addFoodItem("apple")
+    elif ranu <= 30:
+        addFoodItem("golden_apple")
+    elif ranu <= 40:
+        addFoodItem("rotten_apple")
+  
     # handles boundaries
     if head_a.xcor()>290:
        head_a.setx(-290)
@@ -200,18 +219,15 @@ while True:
     # Detect collision with food items
 
     for food in foodItems:
-        if turt_collision(head_a,food):
-            if food.type == "apple":
-                head_a.score+=1
-            if food.type == "golden_apple":
-                head_a.score+=5
-            food.goto(1000,1000)
-        if turt_collision(head_b,food):
-            if food.type == "apple":
-                head_b.score+=1
-            if food.type == "golden_apple":
-                head_b.score+=5
-            food.goto(1000,1000)
+        for head in [head_a, head_b]:
+            if turt_collision(head,food):
+                if food.type == "apple":
+                    head.score+=1
+                if food.type == "golden_apple":
+                    head.score+=5
+                if food.type == "rotten_apple":
+                    head.score-=1
+                food.goto(1000,1000)
  
     
 
