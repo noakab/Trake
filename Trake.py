@@ -57,8 +57,9 @@ move_step = 20
 foodItems = []
 
 def addFoodItem(type):
-    if type=="apple":
+    if type=="apple": 
         new_food = turtle.Turtle()
+        new_food.type="apple"
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("red")
