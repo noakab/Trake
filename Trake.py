@@ -1,9 +1,6 @@
-# creat snake
-# make food
-# creat special moves
-# creat keys
-# screen=green
-# test every time we make changes
+# Program created by Noam Kabla-Teurtroy and Alexandre Kabla
+# 2021
+
 import turtle
 import random
 import time
