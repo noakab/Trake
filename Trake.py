@@ -66,7 +66,16 @@ def addFoodItem(type):
         new_food.goto(random.randint(-300,300),random.randint(-300,300))
         foodItems.append(new_food)
 
-    
+
+    if type=="golden_apple":
+        new_food = turtle.Turtle()
+        new_food.speed(0)
+        new_food.shape("circle")
+        new_food.color("yellow")
+        new_food.penup()
+        new_food.goto(random.randint(-300,300),random.randint(-300,300))
+        foodItems.append(new_food)
+   
 # Detect collision between two turtles
 def turt_collision(t1,t2):
     return( (t1.xcor()-t2.xcor())**2 + (t1.ycor()-t2.ycor())**2 < 400 )
@@ -195,6 +204,7 @@ while True:
             head_b.score+=1
             food.goto(1000,1000)
 
+    
 
 
 
