@@ -70,6 +70,7 @@ def addFoodItem(type):
 
     if type=="golden_apple":
         new_food = turtle.Turtle()
+        new_food.type="golden_apple"
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("yellow")
@@ -168,6 +169,7 @@ while True:
     move(head_a)
     move(head_b)
     addFoodItem("apple")
+    addFoodItem("golden_apple")
  
     # handles boundaries
     if head_a.xcor()>290:
@@ -199,12 +201,18 @@ while True:
 
     for food in foodItems:
         if turt_collision(head_a,food):
-            head_a.score+=1
+            if food.type == "apple":
+                head_a.score+=1
+            if food.type == "golden_apple":
+                head_a.score+=5
             food.goto(1000,1000)
         if turt_collision(head_b,food):
-            head_b.score+=1
+            if food.type == "apple":
+                head_b.score+=1
+            if food.type == "golden_apple":
+                head_b.score+=5
             food.goto(1000,1000)
-
+ 
     
 
 
