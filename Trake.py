@@ -38,6 +38,7 @@ head_a.penup()
 head_a.goto(-250,0)
 head_a.direction = "up"
 head_a.score = 0
+head_a.segments = []
 
 head_b = turtle.Turtle()
 head_b.speed(0)
@@ -47,9 +48,19 @@ head_b.penup()
 head_b.goto(250,0)
 head_b.direction = "down"
 head_b.score = 0
+head_b.segments = []
 
 
 move_step = 20
+
+def add_segment(segments):
+        # Add a segment
+        new_segment = turtle.Turtle()
+        new_segment.speed(0)
+        new_segment.shape("square")
+        new_segment.color("grey")
+        new_segment.penup()
+        segments.append(new_segment)
 
 
 # Food items
@@ -87,7 +98,7 @@ def addFoodItem(type):
         new_food.penup()
         new_food.goto(random.randint(-300,300),random.randint(-300,300))
         foodItems.append(new_food)
-   
+
 # Detect collision between two turtles
 def turt_collision(t1,t2):
     return( (t1.xcor()-t2.xcor())**2 + (t1.ycor()-t2.ycor())**2 < 400 )
@@ -137,9 +148,19 @@ def go_right_b():
     
     
 
-
-
 def move(head):
+   # Move the end segments first in reverse order
+    for index in range(len(head.segments)-1, 0, -1):
+        x = head.segments[index-1].xcor()
+        y = head.segments[index-1].ycor()
+        head.segments[index].goto(x, y)
+
+    # Move segment 0 to where the head is
+    if len(head.segments) > 0:
+        x = head.xcor()
+        y = head.ycor()
+        head.segments[0].goto(x,y)
+
     if head.direction == "up":
         y = head.ycor()
         head.sety(y + move_step)
@@ -225,6 +246,7 @@ while True:
                     head.score+=1
                 if food.type == "golden_apple":
                     head.score+=5
+                    add_segment(head.segments)
                 if food.type == "rotten_apple":
                     head.score-=1
                 food.goto(1000,1000)
