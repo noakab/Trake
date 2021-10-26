@@ -11,8 +11,21 @@ delay = 0.1
 wn = turtle.Screen()
 wn.title("Trake by CosyCody")
 wn.bgcolor("orange")
-wn.setup(width=600, height=600)
+wn.setup(width=700, height=700)
 wn.tracer(0) # Turns off the screen updates
+
+#Draw border
+border_pen = turtle.Turtle()
+border_pen.speed(0)
+border_pen.color("black")
+border_pen.penup()
+border_pen.setposition(-300,-300)
+border_pen.pendown()
+border_pen.pensize(3)
+for side in range(4):
+	border_pen.fd(600)
+	border_pen.lt(90)
+border_pen.hideturtle()	
 
 
 
@@ -23,7 +36,7 @@ pen.shape("square")
 pen.color("black")
 pen.penup()
 pen.hideturtle()
-pen.goto(0, 260)
+pen.goto(0, 310)
 pen.write("Score A: 0000  Score B: 0000", align="center", font=("Courier", 24, "normal"))
 
 
