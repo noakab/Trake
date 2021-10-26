@@ -36,7 +36,7 @@ head_a.shape("square")
 head_a.color("blue")
 head_a.penup()
 head_a.goto(-250,0)
-head_a.direction = "up"
+head_a.direction = "right"
 head_a.score = 0
 head_a.segments = []
 
@@ -46,7 +46,7 @@ head_b.shape("square")
 head_b.color("green")
 head_b.penup()
 head_b.goto(250,0)
-head_b.direction = "down"
+head_b.direction = "left"
 head_b.score = 0
 head_b.segments = []
 
@@ -67,17 +67,13 @@ def add_segment(segments):
 
 foodItems = []
 
-def addFoodItem(type):
+def addFoodItem(type,x,y):
     if type=="apple": 
         new_food = turtle.Turtle()
         new_food.type="apple"
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("red")
-        new_food.penup()
-        new_food.goto(random.randint(-300,300),random.randint(-300,300))
-        foodItems.append(new_food)
-
 
     if type=="golden_apple":
         new_food = turtle.Turtle()
@@ -85,9 +81,6 @@ def addFoodItem(type):
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("yellow")
-        new_food.penup()
-        new_food.goto(random.randint(-300,300),random.randint(-300,300))
-        foodItems.append(new_food)
  
     if type=="rotten_apple":
         new_food = turtle.Turtle()
@@ -95,9 +88,10 @@ def addFoodItem(type):
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("blue")
-        new_food.penup()
-        new_food.goto(random.randint(-300,300),random.randint(-300,300))
-        foodItems.append(new_food)
+
+    new_food.penup()
+    new_food.goto(x,y)
+    foodItems.append(new_food)
 
 # Detect collision between two turtles
 def turt_collision(t1,t2):
@@ -176,7 +170,23 @@ def move(head):
     if head.direction == "right":
         x = head.xcor()
         head.setx(x + move_step)
-        
+ 
+
+def drop_segments(head):
+    for index in range(len(head.segments)-1, -1, -1):
+        x = head.segments[index].xcor()
+        y = head.segments[index].ycor()
+        head.segments[index].goto(1000,1000)
+        head.segments.pop(index)
+        head.score -= 5
+        addFoodItem("golden_apple",x,y)
+
+
+
+
+
+
+
         
 # Keyboard bindings
 wn.listen()
@@ -205,36 +215,29 @@ while True:
 
     ranu = random.randint(1,100)
     if ranu<=25:
-        addFoodItem("apple")
+        addFoodItem("apple",random.randint(-300,300),random.randint(-300,300))
     elif ranu <= 30:
-        addFoodItem("golden_apple")
+        addFoodItem("golden_apple",random.randint(-300,300),random.randint(-300,300))
     elif ranu <= 40:
-        addFoodItem("rotten_apple")
+        addFoodItem("rotten_apple",random.randint(-300,300),random.randint(-300,300))
   
     # handles boundaries
-    if head_a.xcor()>290:
-       head_a.setx(-290)
+    for head in [head_a, head_b]:
+        if head.xcor()>290:
+           head.setx(-290)
+           drop_segments(head)
 
-    if head_b.xcor()>290:
-       head_b.setx(-290)  
+        if head.xcor()<-290:
+           head.setx(290)
+           drop_segments(head)
 
-    if head_a.xcor()<-290:
-       head_a.setx(290)
+        if head.ycor()>290:
+           head.sety(-290)
+           drop_segments(head)
 
-    if head_b.xcor()<-290:
-       head_b.setx(290)  
-
-    if head_a.ycor()>290:
-       head_a.sety(-290)
-
-    if head_b.ycor()>290:
-       head_b.sety(-290)  
-
-    if head_a.ycor()<-290:
-       head_a.sety(290)
-
-    if head_b.ycor()<-290:
-       head_b.sety(290)  
+        if head.ycor()<-290:
+           head.sety(290)
+           drop_segments(head)
 
    
     # Detect collision with food items
