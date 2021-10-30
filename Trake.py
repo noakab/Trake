@@ -79,6 +79,7 @@ def add_segment(segments):
 # Food items
 
 foodItems = []
+mobsList = []
 
 def addFoodItem(type,x,y):
     if type=="apple": 
@@ -105,6 +106,22 @@ def addFoodItem(type,x,y):
     new_food.penup()
     new_food.goto(x,y)
     foodItems.append(new_food)
+
+
+
+def addMob(type,x,y):
+    if type=="scarabet": 
+        new_mob = turtle.Turtle()
+        new_mob.type="scarabet"
+        new_mob.speed(0)
+        new_mob.shape("triangle")
+        new_mob.color("red")
+    new_mob.penup()
+    new_mob.goto(x,y)
+    mobsList.append(new_mob)
+
+
+
 
 # Detect collision between two turtles
 def turt_collision(t1,t2):
@@ -227,12 +244,14 @@ while True:
     move(head_b)
 
     ranu = random.randint(1,100)
-    if ranu<=25:
+    if ranu<=0:
         addFoodItem("apple",random.randint(-300,300),random.randint(-300,300))
-    elif ranu <= 30:
+    elif ranu <= 0:
         addFoodItem("golden_apple",random.randint(-300,300),random.randint(-300,300))
-    elif ranu <= 40:
+    elif ranu <= 0:
         addFoodItem("rotten_apple",random.randint(-300,300),random.randint(-300,300))
+    elif ranu <= 40:
+        addMob("scarabet",random.randint(-300,300),random.randint(-300,300))
   
     # handles boundaries
     for head in [head_a, head_b]:
@@ -252,7 +271,17 @@ while True:
            head.sety(290)
            drop_segments(head)
 
-   
+  
+    # Move mobs
+
+    for mob in mobsList:
+        if mob.xcor()!=1000:
+            x=(mob.xcor()+random.randint(-15,15) +300 )%600 -300
+            y=(mob.ycor()+random.randint(-15,15) +300 )%600 -300
+            mob.tilt(random.randint(-15,15))
+            mob.goto(x,y)
+
+
     # Detect collision with food items
 
     for food in foodItems:
@@ -266,6 +295,13 @@ while True:
                 if food.type == "rotten_apple":
                     head.score-=1
                 food.goto(1000,1000)
+ 
+    for mob in mobsList:
+        for head in [head_a, head_b]:
+            if turt_collision(head,mob):
+                if mob.type == "scarabet":
+                    head.score+=1
+                mob.goto(1000,1000)
  
     
 
@@ -284,6 +320,10 @@ while True:
         for i in range(len(foodItems)-1,-1,-1):
             if foodItems[i].xcor()==1000:
                 foodItems.pop(i)
+        for i in range(len(mobsList)-1,-1,-1):
+            if mobsList[i].xcor()==1000:
+                mobsList.pop(i)
+
 
         #foodItems = [fooditem for fooditem in foodItems if fooditem.xcor()==1000]
         print(len(foodItems))
