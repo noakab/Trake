@@ -7,11 +7,16 @@ import time
 
 delay = 0.1
 
+arena_height=500
+arena_width=600
+window_height=arena_height+100
+window_width=arena_width+100
 # Set up the screen
 wn = turtle.Screen()
 wn.title("Trake by CosyCody")
 wn.bgcolor("orange")
-wn.setup(width=700, height=700)
+
+wn.setup(window_width,window_height)
 wn.tracer(0) # Turns off the screen updates
 
 #Draw border
@@ -19,12 +24,20 @@ border_pen = turtle.Turtle()
 border_pen.speed(0)
 border_pen.color("black")
 border_pen.penup()
-border_pen.setposition(-300,-300)
+#1212
+border_pen.setposition(-arena_width/2,-arena_height/2)
 border_pen.pendown()
 border_pen.pensize(3)
-for side in range(4):
-	border_pen.fd(600)
-	border_pen.lt(90)
+#for side in range(4):
+
+border_pen.fd(arena_width)
+border_pen.lt(90)
+border_pen.fd(arena_height)
+border_pen.lt(90)
+border_pen.fd(arena_width)
+border_pen.lt(90)
+border_pen.fd(arena_height)
+border_pen.lt(90)
 border_pen.hideturtle()	
 
 
@@ -36,7 +49,7 @@ pen.shape("square")
 pen.color("black")
 pen.penup()
 pen.hideturtle()
-pen.goto(0, 310)
+pen.goto(0, window_height/2-40)
 pen.write("Score A: 0000  Score B: 0000", align="center", font=("Courier", 24, "normal"))
 
 
@@ -48,7 +61,7 @@ head_a.speed(0)
 head_a.shape("square")
 head_a.color("blue")
 head_a.penup()
-head_a.goto(-250,0)
+head_a.goto(-arena_width/2+50,0)
 head_a.direction = "right"
 head_a.score = 0
 head_a.segments = []
@@ -58,7 +71,7 @@ head_b.speed(0)
 head_b.shape("square")
 head_b.color("green")
 head_b.penup()
-head_b.goto(250,0)
+head_b.goto(arena_width/2-50,0)
 head_b.direction = "left"
 head_b.score = 0
 head_b.segments = []
@@ -206,7 +219,7 @@ def drop_segments(head):
     for index in range(len(head.segments)-1, -1, -1):
         x = head.segments[index].xcor()
         y = head.segments[index].ycor()
-        head.segments[index].goto(1000,1000)
+        head.segments[index].goto(window_width,window_height)
         head.segments.pop(index)
         head.score -= 5
         addFoodItem("golden_apple",x,y)
@@ -242,33 +255,33 @@ while True:
     wn.update()
     move(head_a)
     move(head_b)
-
+#1212 1212 1212 1212
     ranu = random.randint(1,100)
-    if ranu<=0:
-        addFoodItem("apple",random.randint(-300,300),random.randint(-300,300))
-    elif ranu <= 0:
-        addFoodItem("golden_apple",random.randint(-300,300),random.randint(-300,300))
-    elif ranu <= 0:
-        addFoodItem("rotten_apple",random.randint(-300,300),random.randint(-300,300))
+    if ranu<=20:
+        addFoodItem("apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+    elif ranu <= 30:
+        addFoodItem("golden_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
     elif ranu <= 40:
-        addMob("scarabet",random.randint(-300,300),random.randint(-300,300))
+        addFoodItem("rotten_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+    elif ranu <= 60:
+        addMob("scarabet",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
   
     # handles boundaries
     for head in [head_a, head_b]:
-        if head.xcor()>290:
-           head.setx(-290)
+        if head.xcor()>arena_width/2-10:
+           head.setx(-arena_width/2+10)
            drop_segments(head)
 
-        if head.xcor()<-290:
-           head.setx(290)
+        if head.xcor()<-arena_width/2+10:
+           head.setx(arena_width/2-10)
            drop_segments(head)
 
-        if head.ycor()>290:
-           head.sety(-290)
+        if head.ycor()>arena_height/2-10:
+           head.sety(-arena_height/2+10)
            drop_segments(head)
 
-        if head.ycor()<-290:
-           head.sety(290)
+        if head.ycor()<-arena_height/2+10:
+           head.sety(arena_height/2-10)
            drop_segments(head)
 
   
@@ -318,10 +331,10 @@ while True:
     if gametime%100==99:
         # filter food item list to remove eaten items
         for i in range(len(foodItems)-1,-1,-1):
-            if foodItems[i].xcor()==1000:
+            if foodItems[i].xcor()==window_width:
                 foodItems.pop(i)
         for i in range(len(mobsList)-1,-1,-1):
-            if mobsList[i].xcor()==1000:
+            if mobsList[i].xcor()==window_width:
                 mobsList.pop(i)
 
 
