@@ -115,12 +115,20 @@ def addFoodItem(type,x,y):
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("blue")
+        
+    if type=="black_berry":
+        new_food = turtle.Turtle()
+        new_food.type="black_berry"
+        new_food.speed(0)
+        new_food.shape("triangle")
+        new_food.color("black")
+
 
     new_food.penup()
     new_food.goto(x,y)
     foodItems.append(new_food)
-
-
+    
+ 
 
 def addMob(type,x,y):
     if type=="scarabet": 
@@ -265,6 +273,8 @@ while True:
         addFoodItem("rotten_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
     elif ranu <= 60:
         addMob("scarabet",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+    elif ranu <= 62:
+        addFoodItem("black_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
   
     # handles boundaries
     for head in [head_a, head_b]:
@@ -307,6 +317,11 @@ while True:
                     add_segment(head.segments)
                 if food.type == "rotten_apple":
                     head.score-=1
+                food.goto(1000,1000)
+                
+                if food.type == "black_berry":
+                    head.score-=5
+                    drop_segments(head)                 #add_segment(head.segments)
                 food.goto(1000,1000)
  
     for mob in mobsList:
