@@ -123,6 +123,12 @@ def addFoodItem(type,x,y):
         new_food.shape("triangle")
         new_food.color("black")
 
+    if type=="chaose_berry": 
+        new_food = turtle.Turtle()
+        new_food.type="chaose_berry"
+        new_food.speed(0)
+        new_food.shape("circle")
+        new_food.color("black")
 
     new_food.penup()
     new_food.goto(x,y)
@@ -265,16 +271,18 @@ while True:
     move(head_b)
 #1212 1212 1212 1212
     ranu = random.randint(1,100)
-    if ranu<=20:
+    if ranu<=10:
         addFoodItem("apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 30:
+    elif ranu <= 15:
         addFoodItem("golden_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 40:
+    elif ranu <= 20:
         addFoodItem("rotten_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 60:
+    elif ranu <= 30:
         addMob("scarabet",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 62:
+    elif ranu <= 31:
         addFoodItem("black_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+    elif ranu <= 32:
+        addFoodItem("chaose_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
   
     # handles boundaries
     for head in [head_a, head_b]:
@@ -322,6 +330,16 @@ while True:
                 if food.type == "black_berry":
                     head.score-=5
                     drop_segments(head)                 #add_segment(head.segments)
+                food.goto(1000,1000)
+                
+                if food.type == "chaose_berry":
+                    head.score-=0
+                    add_segment(head.segments)
+                    add_segment(head.segments)
+                    add_segment(head.segments)
+                    add_segment(head.segments)
+                    add_segment(head.segments)
+                    add_segment(head.segments)
                 food.goto(1000,1000)
  
     for mob in mobsList:
