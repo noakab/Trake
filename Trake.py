@@ -265,7 +265,7 @@ wn.onkeypress(go_right_b, "p")
 gametime=0
 
 # Main game loop
-while True:
+while gametime<500:
     wn.update()
     move(head_a)
     move(head_b)
@@ -376,5 +376,5 @@ while True:
   
  
 
-
-wn.mainloop()
+print("Score A: {}  Score B: {}".format(head_a.score, head_b.score))         
+#wn.mainloop()
