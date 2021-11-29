@@ -5,10 +5,10 @@ import turtle
 import random
 import time
 
-delay = 0.1
+delay = 0.05
 
-arena_height=500
-arena_width=600
+arena_height=1000
+arena_width=1600
 window_height=arena_height+100
 window_width=arena_width+100
 # Set up the screen
@@ -265,12 +265,12 @@ wn.onkeypress(go_right_b, "p")
 gametime=0
 
 # Main game loop
-while gametime<500:
+while gametime<1500:
     wn.update()
     move(head_a)
     move(head_b)
 #1212 1212 1212 1212
-    ranu = random.randint(1,100)
+    ranu = random.randint(1,50)
     if ranu<=10:
         addFoodItem("apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
     elif ranu <= 15:
@@ -350,6 +350,11 @@ while gametime<500:
                 mob.goto(1000,1000)
  
     
+    for head in [head_a, head_b]:
+        for head2 in [head_a, head_b]:
+            for segment in head2.segments:
+                if turt_collision(head,segment):
+                    drop_segments(head)               
 
 
 
