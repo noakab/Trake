@@ -123,9 +123,9 @@ def addFoodItem(type,x,y):
         new_food.shape("triangle")
         new_food.color("black")
 
-    if type=="chaose_berry": 
+    if type=="chaos_berry": 
         new_food = turtle.Turtle()
-        new_food.type="chaose_berry"
+        new_food.type="chaos_berry"
         new_food.speed(0)
         new_food.shape("circle")
         new_food.color("black")
@@ -282,7 +282,7 @@ while True:
     elif ranu <= 31:
         addFoodItem("black_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
     elif ranu <= 32:
-        addFoodItem("chaose_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addFoodItem("chaos_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
   
     # handles boundaries
     for head in [head_a, head_b]:
@@ -307,8 +307,8 @@ while True:
 
     for mob in mobsList:
         if mob.xcor()!=1000:
-            x=(mob.xcor()+random.randint(-15,15) +300 )%600 -300
-            y=(mob.ycor()+random.randint(-15,15) +300 )%600 -300
+            x=(mob.xcor()+random.randint(-15,15) +arena_width/2 )%(arena_width) -arena_width/2
+            y=(mob.ycor()+random.randint(-15,15) +arena_height/2 )%arena_height -arena_height/2
             mob.tilt(random.randint(-15,15))
             mob.goto(x,y)
 
@@ -332,7 +332,7 @@ while True:
                     drop_segments(head)                 #add_segment(head.segments)
                 food.goto(1000,1000)
                 
-                if food.type == "chaose_berry":
+                if food.type == "chaos_berry":
                     head.score-=0
                     add_segment(head.segments)
                     add_segment(head.segments)
@@ -340,7 +340,7 @@ while True:
                     add_segment(head.segments)
                     add_segment(head.segments)
                     add_segment(head.segments)
-                food.goto(1000,1000)
+                food.goto(arena_width,arena_height)
  
     for mob in mobsList:
         for head in [head_a, head_b]:
