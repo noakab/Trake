@@ -5,10 +5,10 @@ import turtle
 import random
 import time
 
-delay = 0.05
+delay = 0.1
 
-arena_height=1000
-arena_width=1600
+arena_height=500
+arena_width=600
 window_height=arena_height+100
 window_width=arena_width+100
 # Set up the screen
@@ -79,14 +79,21 @@ head_b.segments = []
 
 move_step = 20
 
-def add_segment(segments):
+def add_segment(head):
         # Add a segment
         new_segment = turtle.Turtle()
         new_segment.speed(0)
         new_segment.shape("square")
         new_segment.color("grey")
         new_segment.penup()
-        segments.append(new_segment)
+        if len(head.segments)>0:
+            segment_number=len(head.segments)-1
+            x = head.segments[segment_number].xcor()
+            y = head.segments[segment_number].ycor()
+            new_segment.goto(x,y)
+        else:
+            new_segment.goto(window_width,window_height)
+        head.segments.append(new_segment)
 
 
 # Food items
@@ -322,7 +329,7 @@ while gametime<1500:
                     head.score+=1
                 if food.type == "golden_apple":
                     head.score+=5
-                    add_segment(head.segments)
+                    add_segment(head)
                 if food.type == "rotten_apple":
                     head.score-=1
                 food.goto(1000,1000)
@@ -334,12 +341,8 @@ while gametime<1500:
                 
                 if food.type == "chaos_berry":
                     head.score-=0
-                    add_segment(head.segments)
-                    add_segment(head.segments)
-                    add_segment(head.segments)
-                    add_segment(head.segments)
-                    add_segment(head.segments)
-                    add_segment(head.segments)
+                    for i in range(5):
+                        add_segment(head)
                 food.goto(arena_width,arena_height)
  
     for mob in mobsList:
