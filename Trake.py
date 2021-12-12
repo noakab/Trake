@@ -97,9 +97,10 @@ def add_segment(head):
 
 
 # Food items
-
+structureList = []
 foodItems = []
 mobsList = []
+
 
 def addFoodItem(type,x,y):
     if type=="apple": 
@@ -153,6 +154,18 @@ def addMob(type,x,y):
     new_mob.penup()
     new_mob.goto(x,y)
     mobsList.append(new_mob)
+
+def addstructure(type,x,y):
+    if type=="portal": 
+        new_structure = turtle.Turtle()
+        new_structure.type="portal"
+        new_structure.speed(0)
+        new_structure.shape("square")
+        new_structure.color("brown")
+        
+    new_structure.penup()
+    new_structure.goto(x,y)
+    structureList.append(new_structure)
 
 
 
@@ -266,9 +279,10 @@ wn.onkeypress(go_right_b, "p")
 # 5%  golden apple
 # 10% rotten apple
 
-
-
-
+addstructure("portal",130,120)
+addstructure("portal",130,-120)
+addstructure("portal",-130,120)
+addstructure("portal",-130,-120)
 gametime=0
 
 # Main game loop
@@ -290,7 +304,7 @@ while gametime<1500:
         addFoodItem("black_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
     elif ranu <= 32:
         addFoodItem("chaos_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-  
+    
     # handles boundaries
     for head in [head_a, head_b]:
         if head.xcor()>arena_width/2-10:
@@ -344,6 +358,11 @@ while gametime<1500:
                     for i in range(5):
                         add_segment(head)
                 food.goto(arena_width,arena_height)
+               # if food.type == "":
+                    #head.score-=0
+                   # for i in range(5):
+                        #add_segment(head)
+                #food.goto(arena_width,arena_height)
  
     for mob in mobsList:
         for head in [head_a, head_b]:
@@ -360,7 +379,12 @@ while gametime<1500:
                     drop_segments(head)               
 
 
-
+    for structure in structureList:
+        for head in [head_a, head_b]:
+            if turt_collision(head,structure):
+                if structure.type == "portal":
+                    head.score+=20
+                    head.goto(0,0)
     pen.clear()
     pen.write("Score A: {}  Score B: {}".format(head_a.score, head_b.score), align="center", font=("Courier", 24, "normal")) 
 
