@@ -292,17 +292,17 @@ while gametime<1500:
     move(head_b)
 #1212 1212 1212 1212
     ranu = random.randint(1,50)
-    if ranu<=10:
+    if ranu<=5:
         addFoodItem("apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 15:
+    elif ranu <= 7:
         addFoodItem("golden_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 20:
+    elif ranu <= 10:
         addFoodItem("rotten_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 30:
+    elif ranu <= 15:
         addMob("scarabet",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 31:
+    elif ranu <= 16:
         addFoodItem("black_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
-    elif ranu <= 32:
+    elif ranu <= 17:
         addFoodItem("chaos_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
     
     # handles boundaries
@@ -384,7 +384,14 @@ while gametime<1500:
             if turt_collision(head,structure):
                 if structure.type == "portal":
                     head.score+=20
-                    head.goto(0,0)
+                   # head.goto(10,0)
+                   # head.goto(random.randint("portal"(x,y)))
+                    len(structureList)
+                    spi=random.randint(0,len(structureList)-1)
+                    structureList[spi]
+                    x=structureList[spi].xcor()
+                    y=structureList[spi].ycor()
+                    head.goto(x,y)
     pen.clear()
     pen.write("Score A: {}  Score B: {}".format(head_a.score, head_b.score), align="center", font=("Courier", 24, "normal")) 
 
