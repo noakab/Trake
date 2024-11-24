@@ -293,34 +293,34 @@ while gametime<1500:
 #1212 1212 1212 1212
     ranu = random.randint(1,50)
     if ranu<=5:
-        addFoodItem("apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addFoodItem("apple",random.randint(-arena_width//2,arena_width//2),random.randint(-arena_height//2,arena_height//2))
     elif ranu <= 7:
-        addFoodItem("golden_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addFoodItem("golden_apple",random.randint(-arena_width//2,arena_width//2),random.randint(-arena_height//2,arena_height//2))
     elif ranu <= 10:
-        addFoodItem("rotten_apple",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addFoodItem("rotten_apple",random.randint(-arena_width//2,arena_width//2),random.randint(-arena_height//2,arena_height//2))
     elif ranu <= 15:
-        addMob("scarabet",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addMob("scarabet",random.randint(-arena_width//2,arena_width//2),random.randint(-arena_height//2,arena_height//2))
     elif ranu <= 16:
-        addFoodItem("black_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addFoodItem("black_berry",random.randint(-arena_width//2,arena_width//2),random.randint(-arena_height//2,arena_height//2))
     elif ranu <= 17:
-        addFoodItem("chaos_berry",random.randint(-arena_width/2,arena_width/2),random.randint(-arena_height/2,arena_height/2))
+        addFoodItem("chaos_berry",random.randint(-arena_width//2,arena_width//2),random.randint(-arena_height//2,arena_height//2))
     
     # handles boundaries
     for head in [head_a, head_b]:
-        if head.xcor()>arena_width/2-10:
-           head.setx(-arena_width/2+10)
+        if head.xcor()>arena_width//2-10:
+           head.setx(-arena_width//2+10)
            drop_segments(head)
 
-        if head.xcor()<-arena_width/2+10:
-           head.setx(arena_width/2-10)
+        if head.xcor()<-arena_width//2+10:
+           head.setx(arena_width//2-10)
            drop_segments(head)
 
-        if head.ycor()>arena_height/2-10:
-           head.sety(-arena_height/2+10)
+        if head.ycor()>arena_height//2-10:
+           head.sety(-arena_height//2+10)
            drop_segments(head)
 
-        if head.ycor()<-arena_height/2+10:
-           head.sety(arena_height/2-10)
+        if head.ycor()<-arena_height//2+10:
+           head.sety(arena_height//2-10)
            drop_segments(head)
 
   
@@ -328,8 +328,8 @@ while gametime<1500:
 
     for mob in mobsList:
         if mob.xcor()!=1000:
-            x=(mob.xcor()+random.randint(-15,15) +arena_width/2 )%(arena_width) -arena_width/2
-            y=(mob.ycor()+random.randint(-15,15) +arena_height/2 )%arena_height -arena_height/2
+            x=(mob.xcor()+random.randint(-15,15) +arena_width/2 )%(arena_width) -arena_width//2
+            y=(mob.ycor()+random.randint(-15,15) +arena_height/2 )%arena_height -arena_height//2
             mob.tilt(random.randint(-15,15))
             mob.goto(x,y)
 
